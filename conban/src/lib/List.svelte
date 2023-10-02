@@ -9,8 +9,11 @@
 
   const dispatch = createEventDispatcher()
 
-  const noteDragStart = () => {
-    dispatch('noteDragStart');
+  const noteDragStart = (data) => {
+    dispatch('noteDragStart', data);
+}
+  const drop = (event) => {
+    console.log(event);
 }
   const addNote = () => {
     notes = [...notes, {'message': "I'm a note"}];
@@ -22,7 +25,9 @@
 
 </script>
 
-<div class="list">
+<div class="list"
+  on:drop={(e) => drop(e)}
+>
 <div class="list-header">
   <EditSpan bind:text={name} />
   <button class="add" on:click={addNote}>+</button>
@@ -30,8 +35,10 @@
 <div class="list-body">
   {#each notes as note, i (i)}
     <Note {...note} bind:message={note.message}
-    draggable={true}
-    on:dragstart={(event) => noteDragStart(event, listIndex, i) }/>
+    listIndex={listIndex}
+    noteIndex={i}
+    on:noteDragStart={noteDragStart}
+    />
     <button on:click={() => deleteNote(i)}>x</button>
   {/each}
 </div>

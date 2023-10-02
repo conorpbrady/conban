@@ -16,16 +16,21 @@
 }
 
     let hoveringOverList;
-    const dragStart = (event, listIndex, noteIndex) => {
+    const dragStart = (data) => {
+    const listIndex = data.detail.detail.listIndex;
+    const noteIndex = data.detail.detail.noteIndex;
 
-    const data = {listIndex, noteIndex}
+    const noteData = {listIndex, noteIndex}
+    let event = data.detail.detail.event;
     event.dataTransfer.setData('text/plain', JSON.stringify(data))
 }
 
   const drop = (event, listIndex) => {
+    console.log('dropped')
     event.preventDefault();
     const json = event.dataTransfer.getData('text/plain');
     const data = JSON.parse(json);
+    console.log(data);
 
     const [item] = lists[data.listIndex].notes.splice(data.noteIndex, 1);
     lists[data.listIndex].notes.push(item);
@@ -33,7 +38,6 @@
 
     hoveringOverList = null;
 }
-
 
 </script>
 
@@ -50,6 +54,9 @@
     on:noteDragStart={dragStart}
     on:dragenter={() => hoveringOverList = i}
     on:dragleave={() => hoveringOverList = null}
+    on:dragover={(e) => {
+      console.log(e)
+      e.preventDefault() }}
     on:drop={(event) => drop(event, i)}
   />
   <button on:click={() => deleteList(i)}>x</button>
