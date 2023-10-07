@@ -1,45 +1,45 @@
 <script lang="ts">
-  export let name = '';
-  export let notes = [];
-  export let listIndex = 0;
+  export let id = 0;
 
   import Note from './Note.svelte';
   import EditSpan from './EditSpan.svelte'
-  import { createEventDispatcher } from 'svelte'
+  import { boards, activeBoardId } from './stores.js';
 
-  const dispatch = createEventDispatcher()
+  const handleDrop = (event) => {
+    event.preventDefault();
+    const listId = event.dataTransfer.getData('listId');
+    const noteId = event.dataTransfer.getData('noteId');
 
-  const noteDragStart = (data) => {
-    dispatch('noteDragStart', data);
-}
-  const drop = (event) => {
-    console.log(event);
-}
+    const note = $boards[$activeBoardId].lists[listId].notes[noteId];
+    $boards[$activeBoardId].lists[listId].notes.splice(noteId, 1);
+    $boards[$activeBoardId].lists[id].notes.push(note);
+    console.log($boards);
+    $boards = $boards;
+  }
   const addNote = () => {
-    notes = [...notes, {'message': "I'm a note"}];
-}
-  const deleteNote = (index) => {
-    notes.splice(index, 1);
-    notes = notes;
-}
-
+    $boards[$activeBoardId].lists[id].notes.push('New Note');
+    $boards = $boards
+  }
+  const deleteList = (index) => {
+    $boards[$activeBoardId].lists.splice(index, 1);
+    $boards = $boards;
+  }
 </script>
 
 <div class="list"
-  on:drop={(e) => drop(e)}
+  on:drop={handleDrop}
+  ondragover="return false"
 >
 <div class="list-header">
-  <EditSpan bind:text={name} />
+   <EditSpan bind:text={$boards[$activeBoardId].lists[id].name} />
+  <span>
   <button class="add" on:click={addNote}>+</button>
+  <button class="add" on:click={() => deleteList(id)}>x</button>
+  </span>
 </div>
 <div class="list-body">
-  {#each notes as note, i (i)}
-    <Note {...note} bind:message={note.message}
-    listIndex={listIndex}
-    noteIndex={i}
-    on:noteDragStart={noteDragStart}
-    />
-    <button on:click={() => deleteNote(i)}>x</button>
+  {#each $boards[$activeBoardId].lists[id].notes as notes, index (index) }
+  <Note noteId={index} listId={id} />
   {/each}
 </div>
 </div>

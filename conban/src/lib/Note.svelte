@@ -1,26 +1,23 @@
 <script lang="ts">
   import EditSpan from './EditSpan.svelte';
-  import { createEventDispatcher } from 'svelte';
+  import { boards, activeBoardId } from './stores.js';
 
-  export let message = '';
-  export let listIndex = 0;
-  export let noteIndex = 0;
+  export let listId = 0;
+  export let noteId = 0;
 
-  const dispatch = createEventDispatcher();
-
-  const noteDragStart = (event, listIndex, noteIndex) => {
-    let data = {
-      'event': event,
-      'listIndex': listIndex,
-      'noteIndex': noteIndex
-}
-    dispatch('noteDragStart', data);
+  const handleDragStart = (event) => {
+    let listId = event.target.getAttribute('listId');
+    let noteId = event.target.getAttribute('noteId');
+    event.dataTransfer.setData('listId', listId);
+    event.dataTransfer.setData('noteId', noteId);
   }
 </script>
 
 <div class="note"
+  listId={listId}
+  noteId={noteId}
   draggable={true}
-  on:dragstart={(event) => noteDragStart(event, listIndex, noteIndex)}
+  on:dragstart={handleDragStart}
 >
-<EditSpan bind:text={message} />
+<EditSpan bind:text={$boards[$activeBoardId].lists[listId].notes[noteId]} />
 </div>
