@@ -94,13 +94,20 @@ div.list-header {
   display: flex;
   justify-content: space-between;
 }
-div.note {
+textarea, div.note {
   background-color: white;
   color: black;
   margin: .2em;
+}
+div.note-text {
+  white-space: pre-wrap;
 }
 button.add {
   padding: .2em;
   background-color: grey;
 
+}
+textarea {
+  height: 1em;
+  border: 0px;
 }

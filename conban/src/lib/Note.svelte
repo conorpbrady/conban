@@ -1,9 +1,12 @@
 <script lang="ts">
   import EditSpan from './EditSpan.svelte';
+  import EditArea from './EditArea.svelte';
   import { boards, activeBoardId } from './stores.js';
 
   export let listId = 0;
   export let noteId = 0;
+
+  let textAreaHeight = "1em";
 
   const handleDragStart = (event) => {
     let listId = event.target.getAttribute('listId');
@@ -16,6 +19,9 @@
     $boards[$activeBoardId].lists[listId].notes.splice(noteId, 1);
     $boards = $boards;
 }
+
+
+
 </script>
 
 <div class="note"
@@ -24,7 +30,9 @@
   draggable={true}
   on:dragstart={handleDragStart}
 >
-<EditSpan bind:text={$boards[$activeBoardId].lists[listId].notes[noteId]} />
+<EditArea  bind:text={$boards[$activeBoardId].lists[listId].notes[noteId]} />
+<!-- <EditSpan bind:text={$boards[$activeBoardId].lists[listId].notes[noteId]} /> -->
+
 <a href={null} on:click={deleteNote}>x</a>
 </div>
 
