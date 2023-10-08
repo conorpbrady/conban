@@ -13,7 +13,6 @@
     const note = $boards[$activeBoardId].lists[listId].notes[noteId];
     $boards[$activeBoardId].lists[listId].notes.splice(noteId, 1);
     $boards[$activeBoardId].lists[id].notes.push(note);
-    console.log($boards);
     $boards = $boards;
   }
   const addNote = () => {
