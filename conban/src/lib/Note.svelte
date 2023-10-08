@@ -11,6 +11,11 @@
     event.dataTransfer.setData('listId', listId);
     event.dataTransfer.setData('noteId', noteId);
   }
+
+  const deleteNote = () => {
+    $boards[$activeBoardId].lists[listId].notes.splice(noteId, 1);
+    $boards = $boards;
+}
 </script>
 
 <div class="note"
@@ -20,4 +25,6 @@
   on:dragstart={handleDragStart}
 >
 <EditSpan bind:text={$boards[$activeBoardId].lists[listId].notes[noteId]} />
+<a href={null} on:click={deleteNote}>x</a>
 </div>
+
