@@ -12,7 +12,9 @@
     $boards = JSON.parse(boardObj);
   }
 </script>
-
+<svelte:head>
+  <title>{$boards[$activeBoardId].name}</title>
+</svelte:head>
 <main>
   <button on:click={save}>Save</button>
   <button on:click={load}>Load</button>
