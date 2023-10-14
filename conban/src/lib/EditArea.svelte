@@ -13,7 +13,6 @@
   const calcHeight = () => {
     let numberOfLines = (text.match(/\n/g)||[]).length
     textAreaHeight=`${numberOfLines + 2}rem`;
-    console.log(textAreaHeight);
 }
   const initInput = (element) => {
     calcHeight();
