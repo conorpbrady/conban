@@ -15,6 +15,10 @@
     textAreaHeight=`${numberOfLines + 2}rem`;
     console.log(textAreaHeight);
 }
+  const initInput = (element) => {
+    calcHeight();
+    element.focus();
+}
 </script>
 <style>
   textarea {
@@ -24,7 +28,8 @@
 
 {#if editable }
   <textarea style="--text-height: {textAreaHeight}"
-  on:input={calcHeight} on:blur={toArea} bind:value={text} />
+            on:input={calcHeight} on:blur={toArea} bind:value={text}
+           use:initInput />
 {:else}
   <div class="note-text" on:click={updateText}>{text}</div>
 {/if}

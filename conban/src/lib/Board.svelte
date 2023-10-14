@@ -24,7 +24,6 @@
 <button on:click={addList}>New List</button>
 </div>
 
-
 <div class="board">
 {#each $boards[$activeBoardId].lists as list, index (index) }
 <List id={index} />
