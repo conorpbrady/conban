@@ -98,9 +98,11 @@ textarea, div.note {
   background-color: white;
   color: black;
   margin: .2em;
+  display: flex;
 }
 div.note-text {
   white-space: pre-wrap;
+  flex-grow: 1;
 }
 button.add {
   padding: .2em;

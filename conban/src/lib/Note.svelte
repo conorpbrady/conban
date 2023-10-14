@@ -29,7 +29,7 @@
   noteId={noteId}
   draggable={true}
   on:dragstart={handleDragStart}
->
+     >
 <EditArea  bind:text={$boards[$activeBoardId].lists[listId].notes[noteId]} />
 <!-- <EditSpan bind:text={$boards[$activeBoardId].lists[listId].notes[noteId]} /> -->
 
