@@ -1,6 +1,6 @@
 <script lang="ts">
   export let text = '';
-  let editable = false;
+  let editable;
   let textAreaHeight = "1rem";
 
   const updateText = () => {
@@ -17,7 +17,7 @@
   const initInput = (element) => {
     calcHeight();
     element.focus();
-}
+}  
 </script>
 <style>
   textarea {
