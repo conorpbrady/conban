@@ -1,11 +1,8 @@
 <script lang="ts">
-  import EditArea from './EditArea.svelte';
   import { boards, activeBoardId } from './stores.js';
 
   export let listId = 0;
   export let noteId = 0;
-
-  let textAreaHeight = "1em";
 
   const handleDragStart = (event) => {
     let listId = event.target.getAttribute('listId');
@@ -18,6 +15,9 @@
     $boards[$activeBoardId].lists[listId].notes.splice(noteId, 1);
     $boards = $boards;
 }
+  const initInput = (element) => {
+    window.getSelection().selectAllChildren(element);
+}
 </script>
 
 <div class="note"
@@ -27,8 +27,9 @@
   on:dragstart={handleDragStart}
   >
   <span style="color: gray; font-size: 0.8rem">=</span>
-  <EditArea bind:text={$boards[$activeBoardId].lists[listId].notes[noteId]} />
-
+   <div contenteditable style="width: 95%; outline: 0px solid transparent;"
+           bind:innerText={$boards[$activeBoardId].lists[listId].notes[noteId]}
+           use:initInput />
 <a href={null} on:click={deleteNote}>x</a>
 </div>
 

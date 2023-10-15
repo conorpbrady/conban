@@ -2,7 +2,6 @@
   export let id = 0;
 
   import Note from './Note.svelte';
-  import EditSpan from './EditSpan.svelte'
   import { boards, activeBoardId } from './stores.js';
 
   const handleDrop = (event) => {
@@ -23,6 +22,9 @@
     $boards[$activeBoardId].lists.splice(index, 1);
     $boards = $boards;
   }
+  const initList = (element) => {
+   window.getSelection().selectAllChildren(element); 
+}
 </script>
 
 <div class="list"
@@ -30,7 +32,9 @@
   ondragover="return false"
 >
 <div class="list-header">
-   <EditSpan bind:text={$boards[$activeBoardId].lists[id].name} />
+  <div contenteditable bind:innerText={$boards[$activeBoardId].lists[id].name} 
+       style="border: 0px solid transparent; width: 75%;"
+       use:initList />
   <span>
   <button class="add" on:click={addNote}>+</button>
   <button class="add" on:click={() => deleteList(id)}>x</button>
