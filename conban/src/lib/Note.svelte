@@ -6,7 +6,7 @@
   export let noteId = 0;
 
   let textAreaHeight = "1em";
-  
+
   const handleDragStart = (event) => {
     let listId = event.target.getAttribute('listId');
     let noteId = event.target.getAttribute('noteId');
@@ -26,7 +26,7 @@
   draggable={true}
   on:dragstart={handleDragStart}
   >
-
+  <span style="color: gray; font-size: 0.8rem">=</span>
   <EditArea bind:text={$boards[$activeBoardId].lists[listId].notes[noteId]} />
 
 <a href={null} on:click={deleteNote}>x</a>

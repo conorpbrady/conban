@@ -10,6 +10,7 @@
 
   const save = () => {
     try {
+      $boards[$activeBoardId].lastSaved = Date();
       localStorage.setItem('boardData', JSON.stringify($boards));
       messageType = 'success'
       messageContent = 'Saved Successfully'

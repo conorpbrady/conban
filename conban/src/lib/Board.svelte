@@ -20,6 +20,11 @@
   }
 </script>
 
+<div class="status">
+  {#if $boards[$activeBoardId].lastSaved != ''}
+    <p>Last Saved: {$boards[$activeBoardId].lastSaved}</p>
+  {/if}
+</div>
 <div class="menu">
 <button on:click={addList}>New List</button>
 </div>
