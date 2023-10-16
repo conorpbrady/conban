@@ -38,8 +38,8 @@
        style="border: 0px solid transparent; width: 75%;"
        use:focus />
   <span>
-  <button class="add" on:click={addNote}>+</button>
-  <button class="add" on:click={() => deleteList(id)}>x</button>
+    <a href={null} class="add" on:click={addNote}>+</a>
+    <a href={null} class="add" on:click={() => deleteList(id)}>x</a>
   </span>
 </div>
 <div class="list-body">

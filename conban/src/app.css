@@ -89,27 +89,35 @@ div.list {
   border: 1px solid black;
   margin: .5em;
   min-width: 160px;
+  background-color: #444;
+  padding: 0.3em;
 }
 div.list-header {
   display: flex;
   justify-content: space-between;
 }
-textarea, div.note {
+div.note {
   background-color: white;
   color: black;
-  margin: .2em;
+  margin: .4em .1em;
   display: flex;
 }
 div.note-text {
   white-space: pre-wrap;
   flex-grow: 1;
 }
-button.add {
+.add {
   padding: .2em;
-  background-color: grey;
-
 }
-textarea {
-  height: 1em;
-  border: 0px;
+.add:hover {
+  cursor: default;
+}
+.note-control {
+  display: inline-flex;
+  align-items: center;
+  text-decoration: none;
+  color: gray;
+  font-size: .8rem;
+  min-width: 8px;
+  margin: .2em;
 }
