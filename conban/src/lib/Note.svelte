@@ -15,8 +15,10 @@
     $boards[$activeBoardId].lists[listId].notes.splice(noteId, 1);
     $boards = $boards;
 }
-  const initInput = (element) => {
+  const focus = (element) => {
+    if(element.innerText == "New Note") {
     window.getSelection().selectAllChildren(element);
+    }
 }
 </script>
 
@@ -29,7 +31,7 @@
   <span style="color: gray; font-size: 0.8rem">=</span>
    <div contenteditable style="width: 95%; outline: 0px solid transparent;"
            bind:innerText={$boards[$activeBoardId].lists[listId].notes[noteId]}
-           use:initInput />
+           use:focus />
 <a href={null} on:click={deleteNote}>x</a>
 </div>
 
