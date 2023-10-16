@@ -30,7 +30,12 @@
 </div>
 
 <div class="board">
-{#each $boards[$activeBoardId].lists as list, index (index) }
+  <div class="board-header" contenteditable bind:innerText={$boards[$activeBoardId].name} >
+  </div>
+  <div class="board-body">
+  {#each $boards[$activeBoardId].lists as list, index (index) }
+
 <List id={index} />
 {/each}
+  </div>
 </div>

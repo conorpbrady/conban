@@ -81,9 +81,19 @@ div.menu {
 }
 div.board {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   min-width: 640px;
 
+}
+div.board-header {
+  width: 30%;
+  margin: auto;
+  outline: 0px solid transparent;
+  font-size: 1.5em;
+}
+div.board-body {
+  display: flex;
+  flex-direction: row;
 }
 div.list {
   border: 1px solid black;
