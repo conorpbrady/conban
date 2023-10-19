@@ -37,6 +37,28 @@
     setTimeout(() => visible = false, 2000);
 }
   }
+
+  const newBoard = () => {
+    const initObj = {
+      'name': 'New Board',
+      'lists': [
+        {
+          'name': 'List 1',
+          'notes': [
+            'Note 1',
+            'Note 2'
+            ]
+        }
+        ]
+      }
+    $boards.push(initObj);
+    $boards = $boards;
+  }
+
+  const switchBoard = (boardId) => {
+    $activeBoardId = boardId;
+  }
+
 </script>
 <svelte:head>
   <title>{$boards[$activeBoardId].name}</title>
@@ -45,5 +67,12 @@
   <Notification bind:visible={visible} messageType={messageType} messageContent={messageContent} />
   <button on:click={save}>Save</button>
   <button on:click={load}>Load</button>
+  <br>
+  <button on:click={newBoard}>New Board</button>
+  <br>
+  {#each $boards as board, index (index)}
+    <a href={null} on:click={() => switchBoard(index)}>{index}: {board.name}</a>
+    <br>
+  {/each}
   <Board />
 </main>
