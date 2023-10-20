@@ -88,7 +88,6 @@ div.board {
 div.board-header {
   width: 30%;
   margin: auto;
-  outline: 0px solid transparent;
   font-size: 1.5em;
 }
 div.board-body {

@@ -53,11 +53,14 @@
       }
     $boards.push(initObj);
     $boards = $boards;
+    $activeBoardId = $boards.length - 1;
   }
 
   const switchBoard = (boardId) => {
     $activeBoardId = boardId;
   }
+
+  const boardItems = $boards.map((item) => item.name);
 
 </script>
 <svelte:head>
@@ -68,11 +71,14 @@
   <button on:click={save}>Save</button>
   <button on:click={load}>Load</button>
   <br>
-  <button on:click={newBoard}>New Board</button>
   <br>
-  {#each $boards as board, index (index)}
-    <a href={null} on:click={() => switchBoard(index)}>{index}: {board.name}</a>
-    <br>
-  {/each}
+  <select bind:value={$activeBoardId}>
+    {#each $boards as item, index (index)}
+      <option value={index}>{item.name}</option>
+    {/each}
+  </select>
+  <br>
+  <br>
+  <a href={null} on:click={newBoard}>New Board</a>
   <Board />
 </main>

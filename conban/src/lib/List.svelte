@@ -35,7 +35,7 @@
 >
 <div class="list-header">
   <div contenteditable bind:innerText={$boards[$activeBoardId].lists[id].name} 
-       style="outline: 0px solid transparent; width: 75%;"
+       style="width: 75%;"
        use:focus />
   <span>
     <a href={null} class="add" on:click={addNote}>+</a>
