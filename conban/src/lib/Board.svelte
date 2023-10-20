@@ -1,6 +1,7 @@
 <script lang="ts">
   import List from './List.svelte';
   import { boards, activeBoardId } from './stores.js';
+  import { slide } from 'svelte/transition';
 
   const addList = () =>  {
     const newListObj = {
@@ -18,19 +19,18 @@
     const noteData = {listIndex, noteIndex}
     event.dataTransfer.setData('text/plain', JSON.stringify(data))
   }
+
+  let menuExpanded = false;
+
+  const expandMenu = () => {
+    menuExpanded = !menuExpanded
+  }
 </script>
 
-<div class="status">
-  {#if $boards[$activeBoardId].lastSaved != ''}
-    <p>Last Saved: {$boards[$activeBoardId].lastSaved}</p>
-  {/if}
-</div>
-<div class="menu">
-<button on:click={addList}>New List</button>
-</div>
-
 <div class="board">
-  <div class="board-header" contenteditable bind:innerText={$boards[$activeBoardId].name} >
+  <div class="board-header">
+    <a href={null} on:click={addList}>New List</a>
+    <div class="board-name" contenteditable bind:innerText={$boards[$activeBoardId].name}></div>
   </div>
   <div class="board-body">
   {#each $boards[$activeBoardId].lists as list, index (index) }

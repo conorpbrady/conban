@@ -1,16 +1,25 @@
 <script lang="ts">
-  import { fade } from 'svelte/transition';
+  import { fade, slide } from 'svelte/transition';
   import Board from './lib/Board.svelte';
   import { boards, activeBoardId } from './lib/stores.js';
   import Notification from './lib/Notification.svelte';
 
+
+  let menuExpanded = false;
+
+  const expandMenu = () => {
+    menuExpanded = !menuExpanded;
+  }
+
+
   let messageType = '';
   let messageContent = '';
-  let visible = false;
+  let messageVisible = false;
 
+  
   const save = () => {
     try {
-      $boards[$activeBoardId].lastSaved = Date();
+      $boards.lastSaved = Date();
       localStorage.setItem('boardData', JSON.stringify($boards));
       messageType = 'success'
       messageContent = 'Saved Successfully'
@@ -18,8 +27,8 @@
       messageType = 'warning'
       messageContent = 'Could not save'
   } finally {
-      visible = true;
-      setTimeout(() => visible = false, 2000);
+      messageVisible = true;
+      setTimeout(() => messageVisible = false, 2000);
 }
 }
 
@@ -67,18 +76,32 @@
   <title>{$boards[$activeBoardId].name}</title>
 </svelte:head>
 <main>
-  <Notification bind:visible={visible} messageType={messageType} messageContent={messageContent} />
-  <button on:click={save}>Save</button>
-  <button on:click={load}>Load</button>
-  <br>
-  <br>
-  <select bind:value={$activeBoardId}>
-    {#each $boards as item, index (index)}
-      <option value={index}>{item.name}</option>
-    {/each}
-  </select>
-  <br>
-  <br>
-  <a href={null} on:click={newBoard}>New Board</a>
+  <nav on:mouseenter={expandMenu} on:mouseleave={expandMenu} class="menu">
+    <a href={null}>Menu</a>
+    {#if menuExpanded}
+      <ul transition:slide class="nav-menu">
+        <li>
+          <a href={null} on:click={save}>Save</a>
+        </li>
+        <li>
+          <a href={null} on:click={load}>Load</a>
+        </li>
+        <li>
+          Select Board
+        </li>
+        {#each $boards as board, index (index)}
+          <li><a href={null} on:click={() => switchBoard(index)}>{board.name}</a></li>
+        {/each}
+        <li>---</li>
+        <li>
+          <a href={null} on:click={newBoard}>New Board</a>
+        </li>
+      </ul>
+    {/if}
+  </nav>
+  <Notification bind:visible={messageVisible} messageType={messageType} messageContent={messageContent} />
   <Board />
+  {#if $boards.lastSaved}
+  <span>Last Saved: {$boards.lastSaved}</span>
+  {/if}
 </main>

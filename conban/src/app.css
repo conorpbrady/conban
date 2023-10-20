@@ -76,9 +76,28 @@ button:focus-visible {
     background-color: #f9f9f9;
   }
 }
-div.menu {
-  margin: 1em;
+
+nav.menu {
+  text-align: left;
+  border: 1px solid gray;
+  background-color: #333;
+  position: absolute;
+  padding: 0em .5em;
+
 }
+ul.nav-menu {
+  list-style: none;
+  text-align: left;
+  padding-left: .2em;
+  padding-top: .2em;
+}
+ul.nav-menu li {
+  list-style: none;
+  text-align: left;
+  color: white;
+}
+
+
 div.board {
   display: flex;
   flex-direction: column;
@@ -86,9 +105,13 @@ div.board {
 
 }
 div.board-header {
+  display: flex;
+}
+div.board-name {
   width: 30%;
   margin: auto;
   font-size: 1.5em;
+  flex-direction: row;
 }
 div.board-body {
   display: flex;
