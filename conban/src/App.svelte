@@ -64,9 +64,6 @@
   };
 </script>
 
-[warn] --jsx-bracket-same-line is deprecated. [warn] Ignored unknown option
---loglevel=error. Did you mean --log-level? [warn] Ignored unknown option
---stdin.
 <svelte:head>
   <title>{$boards[$activeBoardId].name}</title>
 </svelte:head>
