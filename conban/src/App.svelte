@@ -1,77 +1,72 @@
 <script lang="ts">
-  import { fade, slide } from 'svelte/transition';
-  import Board from './lib/Board.svelte';
-  import { boards, activeBoardId } from './lib/stores.js';
-  import Notification from './lib/Notification.svelte';
-
+  import { slide } from "svelte/transition";
+  import Board from "./lib/Board.svelte";
+  import { boards, activeBoardId } from "./lib/stores.js";
+  import Notification from "./lib/Notification.svelte";
 
   let menuExpanded = false;
 
   const expandMenu = () => {
     menuExpanded = !menuExpanded;
-  }
+  };
 
-
-  let messageType = '';
-  let messageContent = '';
+  let messageType = "";
+  let messageContent = "";
   let messageVisible = false;
 
-  
   const save = () => {
     try {
       $boards.lastSaved = Date();
-      localStorage.setItem('boardData', JSON.stringify($boards));
-      messageType = 'success'
-      messageContent = 'Saved Successfully'
-  } catch {
-      messageType = 'warning'
-      messageContent = 'Could not save'
-  } finally {
+      localStorage.setItem("boardData", JSON.stringify($boards));
+      messageType = "success";
+      messageContent = "Saved Successfully";
+    } catch {
+      messageType = "warning";
+      messageContent = "Could not save";
+    } finally {
       messageVisible = true;
-      setTimeout(() => messageVisible = false, 2000);
-}
-}
+      setTimeout(() => (messageVisible = false), 2000);
+    }
+  };
 
   const load = () => {
     try {
-    let boardObj = localStorage.getItem('boardData');
-    $boards = JSON.parse(boardObj);
-    messageType = 'success';
-    messageContent = 'Load Succesful';
-} catch {
-    messageType = 'warning';
-    messageContent = 'Could not load';
-} finally {
-    visible = true;
-    setTimeout(() => visible = false, 2000);
-}
-  }
+      let boardObj = localStorage.getItem("boardData");
+      $boards = JSON.parse(boardObj);
+      messageType = "success";
+      messageContent = "Load Succesful";
+    } catch {
+      messageType = "warning";
+      messageContent = "Could not load";
+    } finally {
+      messageVisible = true;
+      setTimeout(() => (messageVisible = false), 2000);
+    }
+  };
 
   const newBoard = () => {
     const initObj = {
-      'name': 'New Board',
-      'lists': [
+      name: "New Board",
+      lists: [
         {
-          'name': 'List 1',
-          'notes': [
-            'Note 1',
-            'Note 2'
-            ]
-        }
-        ]
-      }
+          name: "List 1",
+          notes: ["Note 1", "Note 2"],
+        },
+      ],
+    };
     $boards.push(initObj);
     $boards = $boards;
     $activeBoardId = $boards.length - 1;
-  }
+  };
 
   const switchBoard = (boardId) => {
     $activeBoardId = boardId;
-  }
-
-  const boardItems = $boards.map((item) => item.name);
-
+  };
 </script>
+
+[warn] --jsx-bracket-same-line is deprecated. [warn] Ignored unknown option
+--loglevel=error. Did you mean --log-level? [warn] Ignored unknown option
+--stdin.
 <svelte:head>
   <title>{$boards[$activeBoardId].name}</title>
 </svelte:head>
@@ -87,7 +82,9 @@
           <a href={null} on:click={load}>Load</a>
         </li>
         {#each $boards as board, index (index)}
-          <li><a href={null} on:click={() => switchBoard(index)}>{board.name}</a></li>
+          <li>
+            <a href={null} on:click={() => switchBoard(index)}>{board.name}</a>
+          </li>
         {/each}
         <li style="border-top: 1px solid gray;">
           <a href={null} on:click={newBoard}>New Board</a>
@@ -95,9 +92,9 @@
       </ul>
     {/if}
   </nav>
-  <Notification bind:visible={messageVisible} messageType={messageType} messageContent={messageContent} />
+  <Notification bind:visible={messageVisible} {messageType} {messageContent} />
   <Board />
   {#if $boards.lastSaved}
-  <span>Last Saved: {$boards.lastSaved}</span>
+    <span>Last Saved: {$boards.lastSaved}</span>
   {/if}
 </main>

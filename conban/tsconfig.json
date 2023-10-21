@@ -16,6 +16,7 @@
     "isolatedModules": true
   },
   "include": [
+    "../.eslintrc.js",
     "src/**/*.d.ts",
     "src/**/*.ts",
     "src/**/*.js",
