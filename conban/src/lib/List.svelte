@@ -34,8 +34,10 @@
   ondragover="return false"
 >
 <div class="list-header">
+  <span class="note-control">=</span>
   <div contenteditable bind:innerText={$boards[$activeBoardId].lists[id].name} 
        style="width: 75%;"
+       class="note-name"
        use:focus />
   <span>
     <a href={null} class="add" on:click={addNote}>+</a>

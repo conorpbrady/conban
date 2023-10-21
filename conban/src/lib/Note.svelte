@@ -29,7 +29,8 @@
   on:dragstart={handleDragStart}
   >
   <span class="note-control">=</span>
-   <div contenteditable style="width: 95%; outline: 0px solid transparent;"
+  <div contenteditable 
+       class="note-text"
            bind:innerText={$boards[$activeBoardId].lists[listId].notes[noteId]}
            use:focus />
   <a href={null} on:click={deleteNote} class="note-control">x</a>

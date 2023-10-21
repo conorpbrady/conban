@@ -83,17 +83,13 @@
         <li>
           <a href={null} on:click={save}>Save</a>
         </li>
-        <li>
+        <li style="border-bottom: 1px solid gray;">
           <a href={null} on:click={load}>Load</a>
-        </li>
-        <li>
-          Select Board
         </li>
         {#each $boards as board, index (index)}
           <li><a href={null} on:click={() => switchBoard(index)}>{board.name}</a></li>
         {/each}
-        <li>---</li>
-        <li>
+        <li style="border-top: 1px solid gray;">
           <a href={null} on:click={newBoard}>New Board</a>
         </li>
       </ul>

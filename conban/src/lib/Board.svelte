@@ -29,8 +29,9 @@
 
 <div class="board">
   <div class="board-header">
-    <a href={null} on:click={addList}>New List</a>
     <div class="board-name" contenteditable bind:innerText={$boards[$activeBoardId].name}></div>
+    <a href={null} on:click={addList}>New List</a>
+     | <a href={null}>Delete Board</a>
   </div>
   <div class="board-body">
   {#each $boards[$activeBoardId].lists as list, index (index) }
