@@ -27,7 +27,6 @@
       window.getSelection().selectAllChildren(element);
     }
   };
-  console.log(id);
 </script>
 
 <div class="list" on:drop={handleDrop} ondragover="return false">

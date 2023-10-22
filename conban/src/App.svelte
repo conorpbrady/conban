@@ -1,14 +1,9 @@
 <script lang="ts">
-  import { slide } from "svelte/transition";
   import Board from "./lib/Board.svelte";
+  import BoardMenu from "./lib/BoardMenu.svelte";
+  import MainMenu from "./lib/MainMenu.svelte";
   import { boards, activeBoardId } from "./lib/stores.js";
   import Notification from "./lib/Notification.svelte";
-
-  let menuExpanded = false;
-
-  const expandMenu = () => {
-    menuExpanded = !menuExpanded;
-  };
 
   let messageType = "";
   let messageContent = "";
@@ -43,52 +38,15 @@
       setTimeout(() => (messageVisible = false), 2000);
     }
   };
-
-  const newBoard = () => {
-    const initObj = {
-      name: "New Board",
-      lists: [
-        {
-          name: "List 1",
-          notes: ["Note 1", "Note 2"],
-        },
-      ],
-    };
-    $boards.push(initObj);
-    $boards = $boards;
-    $activeBoardId = $boards.length - 1;
-  };
-
-  const switchBoard = (boardId) => {
-    $activeBoardId = boardId;
-  };
 </script>
 
 <svelte:head>
   <title>{$boards[$activeBoardId].name}</title>
 </svelte:head>
 <main>
-  <nav on:mouseenter={expandMenu} on:mouseleave={expandMenu} class="menu">
-    <a href={null}>Menu</a>
-    {#if menuExpanded}
-      <ul transition:slide class="nav-menu">
-        <li>
-          <a href={null} on:click={save}>Save</a>
-        </li>
-        <li style="border-bottom: 1px solid gray;">
-          <a href={null} on:click={load}>Load</a>
-        </li>
-        {#each $boards as board, index (index)}
-          <li>
-            <a href={null} on:click={() => switchBoard(index)}>{board.name}</a>
-          </li>
-        {/each}
-        <li style="border-top: 1px solid gray;">
-          <a href={null} on:click={newBoard}>New Board</a>
-        </li>
-      </ul>
-    {/if}
-  </nav>
+  <!-- TODO: Refactor this. having to pass a leftOffset smells -->
+  <MainMenu menuTitle="Menu" {save} {load} />
+  <BoardMenu menuTitle="Boards" leftOffset="6" />
   <Notification bind:visible={messageVisible} {messageType} {messageContent} />
   <Board />
   {#if $boards.lastSaved}

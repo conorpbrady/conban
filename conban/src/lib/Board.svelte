@@ -14,13 +14,16 @@
 
 <div class="board">
   <div class="board-header">
+    <div class="board-corner"></div>
     <div
       class="board-name"
       contenteditable
       bind:innerText={$boards[$activeBoardId].name}
     ></div>
-    <a href={null} on:click={addList}>New List</a>
-    | <a href={null}>Delete Board</a>
+    <div class="board-corner">
+      <a href={null} on:click={addList}>New List</a>
+      | <a href={null}>Delete Board</a>
+    </div>
   </div>
   <div class="board-body">
     {#each $boards[$activeBoardId].lists as _, index (index)}

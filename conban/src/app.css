@@ -104,13 +104,16 @@ div.board {
 }
 div.board-header {
   display: flex;
+  flex-direction: row;
+}
+div.board-corner {
+  flex: 1 1;
+  padding: .6em 0em;
 }
 div.board-name {
-  width: 30%;
-  margin: auto;
   font-size: 1.5em;
-  flex-direction: row;
   outline: 0px solid transparent;
+  flex: 2 2;
 }
 div.board-name:focus {
   background-color: #555555;
