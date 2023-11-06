@@ -3,6 +3,8 @@
   export let save;
   export let load;
   export let menuTitle = "";
+  export let exportData;
+  export let importData;
 
   let menuExpanded = false;
 
@@ -20,6 +22,12 @@
       </li>
       <li>
         <a href={null} on:click={load}>Load</a>
+      </li>
+      <li>
+        <a href={null} on:click={exportData}>Export</a>
+      </li>
+      <li>
+        <a href={null} on:click={importData}>Import</a>
       </li>
     </ul>
   {/if}
