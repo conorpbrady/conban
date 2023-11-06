@@ -9,6 +9,42 @@
   let messageContent = "";
   let messageVisible = false;
 
+  const closeDialog = () => {
+    document.getElementById("delete-confirmation").close();
+  };
+  const showDialog = () => {
+    document.getElementById("delete-confirmation").showModal();
+  };
+  const deleteBoard = () => {
+    if ($boards.length == 1) {
+      messageType = "warning";
+      messageContent = "Cannot delete last board";
+      closeDialog();
+      messageVisible = true;
+      setTimeout(() => (messageVisible = false), 2000);
+      return;
+    }
+    try {
+      let newBoardId = $activeBoardId - 1;
+      if (newBoardId < 0) {
+        newBoardId = 0;
+      }
+      $boards.splice($activeBoardId, 1);
+      $boards = $boards;
+      $activeBoardId = newBoardId;
+      messageType = "success";
+      messageContent = "Board deleted";
+    } catch {
+      messageType = "warning";
+      messageContent = "Could not delete board";
+    } finally {
+      closeDialog();
+      messageVisible = true;
+      setTimeout(() => {
+        messageVisible = false;
+      }, 2000);
+    }
+  };
   const importData = () => {
     let importNode = document.getElementById("importElement");
     importNode.click();
@@ -93,7 +129,7 @@
   <MainMenu menuTitle="Menu" {save} {load} {exportData} {importData} />
   <BoardMenu menuTitle="Boards" leftOffset="6" />
   <Notification bind:visible={messageVisible} {messageType} {messageContent} />
-  <Board />
+  <Board {showDialog} />
   {#if $boards.lastSaved}
     <span>Last Saved: {$boards.lastSaved}</span>
   {/if}
@@ -103,4 +139,10 @@
     accept="text/json"
     style="display:none"
   />
+  <dialog id="delete-confirmation">
+    <span>Are you sure you want to delete {$boards[$activeBoardId].name}?</span
+    ><br /><br />
+    <button on:click={deleteBoard}>Yes</button>
+    <button on:click={closeDialog}>No</button>
+  </dialog>
 </main>

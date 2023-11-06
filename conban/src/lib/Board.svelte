@@ -1,6 +1,7 @@
 <script lang="ts">
   import List from "./List.svelte";
   import { boards, activeBoardId } from "./stores.js";
+  export let showDialog;
 
   const addList = () => {
     const newListObj = {
@@ -22,7 +23,7 @@
     ></div>
     <div class="board-corner">
       <a href={null} on:click={addList}>New List</a>
-      | <a href={null}>Delete Board</a>
+      | <a href={null} on:click={showDialog}>Delete Board</a>
     </div>
   </div>
   <div class="board-body">

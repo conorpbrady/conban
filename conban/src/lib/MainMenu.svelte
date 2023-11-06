@@ -23,7 +23,7 @@
       <li>
         <a href={null} on:click={load}>Load</a>
       </li>
-      <li>
+      <li style="border-top: 1px solid gray">
         <a href={null} on:click={exportData}>Export</a>
       </li>
       <li>
