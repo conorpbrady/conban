@@ -17,24 +17,42 @@
       let file = importNode.files[0];
       //TODO: Verify the data is formatted correctly, throw an error if not
       file.text().then((importedData) => {
-        $boards = JSON.parse(importedData);
+        try {
+          $boards = JSON.parse(importedData);
+          messageType = "success";
+          messageContent = "Imported Successfully";
+        } catch {
+          messageType = "warning";
+          messageContent = "Import failed";
+        } finally {
+          messageVisible = true;
+          setTimeout(() => (messageVisible = false), 2000);
+        }
       });
     });
   };
 
   const exportData = () => {
-    let dataStr =
-      "data:text/json;charset=utf-8," +
-      encodeURIComponent(JSON.stringify($boards));
-    let downloadNode = document.createElement("a");
+    try {
+      let dataStr =
+        "data:text/json;charset=utf-8," +
+        encodeURIComponent(JSON.stringify($boards));
+      let downloadNode = document.createElement("a");
 
-    console.log(dataStr);
-    console.log(dataStr.length);
-    downloadNode.setAttribute("href", dataStr);
-    downloadNode.setAttribute("download", "export.json");
-    document.body.append(downloadNode);
-    downloadNode.click();
-    downloadNode.remove();
+      downloadNode.setAttribute("href", dataStr);
+      downloadNode.setAttribute("download", "export.json");
+      document.body.append(downloadNode);
+      downloadNode.click();
+      downloadNode.remove();
+      messageType = "success";
+      messageContent = "Exported Successfully";
+    } catch {
+      messageType = "warning";
+      messageContent = "Failed to Export";
+    } finally {
+      messageVisible = true;
+      setTimeout(() => (messageVisible = false), 2000);
+    }
   };
   const save = () => {
     try {
@@ -67,9 +85,6 @@
   };
 </script>
 
-[warn] --jsx-bracket-same-line is deprecated. [warn] Ignored unknown option
---loglevel=error. Did you mean --log-level? [warn] Ignored unknown option
---stdin.
 <svelte:head>
   <title>{$boards[$activeBoardId].name}</title>
 </svelte:head>
