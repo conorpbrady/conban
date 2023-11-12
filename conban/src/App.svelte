@@ -101,9 +101,6 @@
   <BoardMenu menuTitle="Boards" leftOffset="6" />
   <Notification bind:visible={messageVisible} {messageType} {messageContent} />
   <Board {showDialog} />
-  {#if $boards.lastSaved}
-    <span>Last Saved: {$boards.lastSaved}</span>
-  {/if}
   <input
     type="file"
     id="importElement"
