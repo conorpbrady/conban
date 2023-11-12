@@ -18,8 +18,8 @@ const basicObj = [
     }
   ];
 
-const initObj = localStorage.getItem("boardData")
-const boardObj = JSON.parse(initObj);
+let initObj = localStorage.getItem("boardData")
+const boardObj = initObj != 'null' ? JSON.parse(initObj) : basicObj;
 export const boards = writable(boardObj);
 boards.subscribe(value => {
  localStorage.setItem("boardData", JSON.stringify(value));
