@@ -90,35 +90,6 @@
       setTimeout(() => (messageVisible = false), 2000);
     }
   };
-  const save = () => {
-    try {
-      $boards.lastSaved = Date();
-      localStorage.setItem("boardData", JSON.stringify($boards));
-      messageType = "success";
-      messageContent = "Saved Successfully";
-    } catch {
-      messageType = "warning";
-      messageContent = "Could not save";
-    } finally {
-      messageVisible = true;
-      setTimeout(() => (messageVisible = false), 2000);
-    }
-  };
-
-  const load = () => {
-    try {
-      let boardObj = localStorage.getItem("boardData");
-      $boards = JSON.parse(boardObj);
-      messageType = "success";
-      messageContent = "Load Succesful";
-    } catch {
-      messageType = "warning";
-      messageContent = "Could not load";
-    } finally {
-      messageVisible = true;
-      setTimeout(() => (messageVisible = false), 2000);
-    }
-  };
 </script>
 
 <svelte:head>
@@ -126,7 +97,7 @@
 </svelte:head>
 <main>
   <!-- TODO: Refactor this. having to pass a leftOffset smells -->
-  <MainMenu menuTitle="Menu" {save} {load} {exportData} {importData} />
+  <MainMenu menuTitle="Menu" {exportData} {importData} />
   <BoardMenu menuTitle="Boards" leftOffset="6" />
   <Notification bind:visible={messageVisible} {messageType} {messageContent} />
   <Board {showDialog} />

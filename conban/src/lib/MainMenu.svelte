@@ -18,12 +18,6 @@
   {#if menuExpanded}
     <ul transition:slide class="nav-menu">
       <li>
-        <a href={null} on:click={save}>Save</a>
-      </li>
-      <li>
-        <a href={null} on:click={load}>Load</a>
-      </li>
-      <li style="border-top: 1px solid gray">
         <a href={null} on:click={exportData}>Export</a>
       </li>
       <li>

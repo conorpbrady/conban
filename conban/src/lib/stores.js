@@ -1,5 +1,5 @@
 import { writable } from 'svelte/store';
-const initObj = [
+const basicObj = [
     {
       "name": "Board 1",
       "lists": [
@@ -18,5 +18,11 @@ const initObj = [
     }
   ];
 
-export const boards = writable(initObj);
+const initObj = localStorage.getItem("boardData")
+const boardObj = JSON.parse(initObj);
+export const boards = writable(boardObj);
+boards.subscribe(value => {
+ localStorage.setItem("boardData", JSON.stringify(value));
+});
 export const activeBoardId = writable(0);
+
